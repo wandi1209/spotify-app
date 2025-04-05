@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/core/configs/theme/app_theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,11 +15,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: Container(),
-    );
+    return MaterialApp(theme: AppTheme.lightTheme, home: Container());
   }
 }
