@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Aplikasi ini memerlukan akses ke jaringan lokal untuk keperluan debugging.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Spotify</string>
 	<key>CFBundleExecutable</key>
