@@ -27,8 +27,8 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BasicAppBar(title: SvgPicture.asset(AppVectors.logo, height: 33)),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         child: Column(
           children: [
             _registerText(),

@@ -23,7 +23,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       if (e.code == 'invalid-email') {
         message = 'Not user found that email';
       } else if (e.code == 'invalid-credential') {
-        message = 'Wrong password providedfor that user';
+        message = 'Wrong password provided for that user';
       }
       return Left(message);
     }

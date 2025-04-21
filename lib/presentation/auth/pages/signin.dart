@@ -26,8 +26,8 @@ class _SigninPageState extends State<SigninPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BasicAppBar(title: SvgPicture.asset(AppVectors.logo, height: 33)),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,7 +42,8 @@ class _SigninPageState extends State<SigninPage> {
             SizedBox(height: 20),
             _recoveryText(),
             SizedBox(height: 22),
-            BasicAppButton(onPressed: () async {
+            BasicAppButton(
+              onPressed: () async {
                 var result = await sl<SigninUseCase>().call(
                   params: SigninUserReq(
                     email: _email.text.toString(),
@@ -64,7 +65,9 @@ class _SigninPageState extends State<SigninPage> {
                     );
                   },
                 );
-              }, title: "Sign In"),
+              },
+              title: "Sign In",
+            ),
             SizedBox(height: 21),
             _or(),
             SizedBox(height: 24),
