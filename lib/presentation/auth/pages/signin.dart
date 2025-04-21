@@ -5,7 +5,11 @@ import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/buttons/basic_app_button.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
+import 'package:spotify/data/models/signin_user_req.dart';
+import 'package:spotify/domain/usecases/auth/signin.dart';
 import 'package:spotify/presentation/auth/pages/signup.dart';
+import 'package:spotify/presentation/root/pages/root.dart';
+import 'package:spotify/service_locator.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({super.key});
@@ -15,6 +19,9 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +42,29 @@ class _SigninPageState extends State<SigninPage> {
             SizedBox(height: 20),
             _recoveryText(),
             SizedBox(height: 22),
-            BasicAppButton(onPressed: () {}, title: "Sign In"),
+            BasicAppButton(onPressed: () async {
+                var result = await sl<SigninUseCase>().call(
+                  params: SigninUserReq(
+                    email: _email.text.toString(),
+                    password: _password.text.toString(),
+                  ),
+                );
+                result.fold(
+                  (l) {
+                    var snackbar = SnackBar(content: Text(l));
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  },
+                  (r) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const RootPage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                );
+              }, title: "Sign In"),
             SizedBox(height: 21),
             _or(),
             SizedBox(height: 24),
@@ -67,6 +96,7 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _emailFiels() {
     return TextField(
+      controller: _email,
       decoration: InputDecoration(hintText: "Enter Username Or Email"),
     );
   }
@@ -81,6 +111,7 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _passwordField() {
     return TextField(
+      controller: _password,
       obscureText: _obscureText,
       decoration: InputDecoration(
         hintText: "Password",
